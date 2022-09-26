@@ -2,7 +2,6 @@ package prova1avestruturadedados;
 
 import java.util.Random;
 import java.util.Scanner;
-import java.math.RoundingMode;;
 
 /**
  * O Projeto foi realizado pela equipe:
@@ -16,7 +15,7 @@ import java.math.RoundingMode;;
  */
 public class Prova1AVEstruturaDeDados {
     public static void main(String[] args) {
-        int vet[] = new int[7];
+        int vet[] = new int[20];
         int vetAux[] = new int[vet.length];
         Random aleatorio = new Random();
         for (int i = 0; i < vet.length; i++) {
@@ -116,10 +115,12 @@ public class Prova1AVEstruturaDeDados {
         int vetCopia[] = new int[vetAux.length];
         vetCopia = vetAux.clone();
         System.out.println("### Ordenação por Seleção ###");
-        for(int index = 0; index < ( vetCopia.length / 2 ) + 1 ; ++index) {
+                        // if((vetCopia.length / 2 ) % 2 == 0) {index < ( vetCopia.length / 2 )} else {index < ( vetCopia.length / 2 ) + 1}
+        for(int index = 0; (vetCopia.length / 2 ) % 2 == 0 ? index < ( vetCopia.length / 2 ) : index < ( vetCopia.length / 2 ) + 1; ++index) {
 
             int maior = buscaMaior(vetCopia);
             int menor = buscaMenor(vetCopia);
+            com++;
 
             int atual = vetCopia[maior];
             int prox = vetCopia[menor];
@@ -127,8 +128,9 @@ public class Prova1AVEstruturaDeDados {
             vetCopia[maior] = 1000000000;
             vetCopia[menor] = 1000000000;
 
-            vetAux[vetCopia.length -  index - 1 ] = atual; //
-            vetAux[index] = prox; //
+            vetAux[vetCopia.length -  index - 1 ] = atual;
+            vetAux[index] = prox; 
+            tro++;
         }
         
         listarComplexiade(tro, com);
