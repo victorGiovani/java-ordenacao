@@ -23,7 +23,7 @@ public class Prova1AVEstruturaDeDados {
         }
         System.out.println("### Lista Desordenada ###");
         for (int val : vet) {
-            System.out.print(val + "-" + val);
+            System.out.print(val + "-");
         }
         System.out.println("");
         Scanner leia = new Scanner(System.in);
@@ -65,30 +65,77 @@ public class Prova1AVEstruturaDeDados {
         int tro = 0; // Variável para contar a quantidade de Trocas desse método
         int com = 0; // Variável para contar a quantidade de Comparações desse método
         System.out.println("### Ordenação por Troca ###");
-        int x, y, index = 1;
-        while (index < vetAux.length) {
-            for (int i = 0; i < vetAux.length; ++i) {
-                if (!(i == vetAux.length - 1) && (vetAux[i] > vetAux[i + 1])) {
-                    x = vetAux[i];
-                    y = vetAux[i + 1];
-                    vetAux[i + 1] = x;
-                    vetAux[i] = y;
+        int index = 1;
+        boolean controle;
+
+        for (int i = 0; i < vetAux.length; ++i) {
+            controle = true;
+            for (int j = 0; j < (vetAux.length - 1); ++j) {
+                if (vetAux[j] > vetAux[j + 1]) {
+                    index = vetAux[j];
+                    vetAux[j] = vetAux[j + 1];
+                    vetAux[j + 1] = index;
+                    controle = false;
                     tro++;
                 }
                 com++;
             }
-            index++;
+            if (controle) {
+                break;
+            }
         }
-
         listarComplexiade(tro, com);
         listarVetorOrdenado(vetAux);
+    }
+
+    private static int buscaMaior(int vetAux[]) {
+        int maior = 0;
+        int indexMaior = 0;
+        for(int index = 0; index < vetAux.length; ++index) {
+            if(vetAux[index] != 1000000000 && vetAux[index] > maior) {
+                maior = vetAux[index];
+                indexMaior = index;
+            }
+        }
+        return indexMaior;
+    }
+    private static int buscaMenor(int vetAux[]) {
+        int menor = vetAux[0];
+        int indexMenor = 0;
+        
+        for(int index = 0; index < vetAux.length; ++index) {
+            if(vetAux[index] != 1000000000 && vetAux[index] < menor) {
+                menor = vetAux[index];
+                indexMenor = index;
+            }
+        }
+        return indexMenor;
     }
 
     private static void ordenarPorSelecao(int vetAux[]) {
         int tro = 0; // Variável para contar a quantidade de Trocas desse método
         int com = 0; // Variável para contar a quantidade de Comparações desse método
+        int vetCopia[] = new int[vetAux.length];
+        vetCopia = vetAux.clone();
         System.out.println("### Ordenação por Seleção ###");
-        // criar aqui a lógica da Ordenação por Seleção
+                        // if((vetCopia.length / 2 ) % 2 == 0) {index < ( vetCopia.length / 2 )} else {index < ( vetCopia.length / 2 ) + 1}
+        for(int index = 0; (vetCopia.length / 2 ) % 2 == 0 ? index < ( vetCopia.length / 2 ) : index < ( vetCopia.length / 2 ) + 1; ++index) {
+
+            int maior = buscaMaior(vetCopia);
+            int menor = buscaMenor(vetCopia);
+            com++;
+
+            int atual = vetCopia[maior];
+            int prox = vetCopia[menor];
+
+            vetCopia[maior] = 1000000000;
+            vetCopia[menor] = 1000000000;
+
+            vetAux[vetCopia.length -  index - 1 ] = atual;
+            vetAux[index] = prox; 
+            tro++;
+        }
+        
         listarComplexiade(tro, com);
         listarVetorOrdenado(vetAux);
     }
