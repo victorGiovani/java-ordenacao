@@ -64,9 +64,9 @@ public class Prova1AVEstruturaDeDados {
         int tro = 0; // Variável para contar a quantidade de Trocas desse método
         int com = 0; // Variável para contar a quantidade de Comparações desse método
         System.out.println("### Ordenação por Troca ###");
-        int atual, prox, index = 1;
+        int atual, prox, index = 0;
         while (index < vetAux.length) {
-            for (int i = 0; i < vetAux.length; ++i) {
+            for (int i = 0; i < vetAux.length - index; ++i) {
                 if (!(i == vetAux.length - 1) && (vetAux[i] > vetAux[i + 1])) {
                     atual = vetAux[i];
                     prox = vetAux[i + 1];
