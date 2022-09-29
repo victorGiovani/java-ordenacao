@@ -13,6 +13,7 @@ import java.util.Scanner;
  * Disciplina: Estrutura de Dados
  * Professor: José Mário Souza
  */
+
 public class Prova1AVEstruturaDeDados {
     public static void main(String[] args) {
         int vet[] = new int[20];
@@ -82,51 +83,67 @@ public class Prova1AVEstruturaDeDados {
         listarVetorOrdenado(vetAux);
     }
     
-    private static int buscaMaior(int vetAux[]) {
-        int maior = 0;
-        int indexMaior = 0;
-        for(int index = 0; index < vetAux.length; ++index) {
-            if(vetAux[index] != 1000000000 && vetAux[index] > maior) {
+    private static Integer[] buscaMaioreMenor(int vetAux[], int maiorIndex, int menorIndex) {
+        int maior = vetAux[maiorIndex];
+        int menor = vetAux[menorIndex];
+        Integer[] maiorEMenor = {maiorIndex, menorIndex}; // INDEX 0 SALVA O MAIOR E INDEX 1 SALVA O MENOR
+
+        for(int index = menorIndex; index < maiorIndex + 1; ++index) {
+            if(vetAux[index] > maior) {
                 maior = vetAux[index];
-                indexMaior = index;
+                maiorEMenor[0] = index;
             }
-        }
-        return indexMaior;
-    }
-    private static int buscaMenor(int vetAux[]) {
-        int menor = vetAux[0];
-        int indexMenor = 0;
-        
-        for(int index = 0; index < vetAux.length; ++index) {
-            if(vetAux[index] != 1000000000 && vetAux[index] < menor) {
+
+            if(vetAux[index] < menor) {
                 menor = vetAux[index];
-                indexMenor = index;
+                maiorEMenor[1] = index;
             }
         }
-        return indexMenor;
+        return maiorEMenor;
     }
+    
     private static void ordenarPorSelecao(int vetAux[]) {
         int tro = 0; // Variável para contar a quantidade de Trocas desse método
         int com = 0; // Variável para contar a quantidade de Comparações desse método
-        int vetCopia[] = new int[vetAux.length];
-        vetCopia = vetAux.clone();
         System.out.println("### Ordenação por Seleção ###");
+        int maior = 0, menor = 0;
                         // if((vetCopia.length / 2 ) % 2 == 0) {index < ( vetCopia.length / 2 )} else {index < ( vetCopia.length / 2 ) + 1}
-        for(int index = 0; (vetCopia.length / 2 ) % 2 == 0 ? index < ( vetCopia.length / 2 ) : index < ( vetCopia.length / 2 ) + 1; ++index) {
+        for(int index = 0; (vetAux.length / 2 ) % 2 == 0 ? index < ( vetAux.length / 2 ) : index < ( vetAux.length / 2 ) + 1; ++index) {
+            int primeiraPosicao = index;
+            int ultimaPosicao = (vetAux.length -  index - 1);
 
-            int maior = buscaMaior(vetCopia);
-            int menor = buscaMenor(vetCopia);
+            Integer[] maiorEMenor = buscaMaioreMenor(vetAux, ultimaPosicao, primeiraPosicao);
+            
+            maior = maiorEMenor[0];
+            menor = maiorEMenor[1];
+            
+            if(maior == primeiraPosicao) {
+                maior = menor;
+            }
+
+            if(menor == ultimaPosicao) {
+                menor = maior;
+            }
+            
+            if(vetAux[maior] != vetAux[ultimaPosicao]) {
+                int fim = vetAux[maior];
+                int atual = vetAux[ultimaPosicao];
+
+                vetAux[ultimaPosicao] = fim;
+                vetAux[maior] = atual;
+            }
+
+            if(vetAux[menor] != vetAux[primeiraPosicao]) {
+                int inicio = vetAux[menor];
+                int atual = vetAux[primeiraPosicao]; 
+
+                vetAux[primeiraPosicao] = inicio; 
+                vetAux[menor] = atual;
+                
+            }
+            tro++;
             com++;
 
-            int atual = vetCopia[maior];
-            int prox = vetCopia[menor];
-
-            vetCopia[maior] = 1000000000;
-            vetCopia[menor] = 1000000000;
-
-            vetAux[vetCopia.length -  index - 1 ] = atual;
-            vetAux[index] = prox; 
-            tro++;
         }
 
         listarComplexiade(tro, com);
