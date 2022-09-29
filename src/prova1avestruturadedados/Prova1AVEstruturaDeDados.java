@@ -62,7 +62,7 @@ public class Prova1AVEstruturaDeDados {
     }
 
     private static void ordenarPorTroca(int vetAux[]) {
-        int tro = 0; // Variável para contar a quantidade de Trocas desse método
+         int tro = 0; // Variável para contar a quantidade de Trocas desse método
         int com = 0; // Variável para contar a quantidade de Comparações desse método
         System.out.println("### Ordenação por Troca ###");
         int index = 1;
@@ -88,54 +88,12 @@ public class Prova1AVEstruturaDeDados {
         listarVetorOrdenado(vetAux);
     }
 
-    private static int buscaMaior(int vetAux[]) {
-        int maior = 0;
-        int indexMaior = 0;
-        for(int index = 0; index < vetAux.length; ++index) {
-            if(vetAux[index] != 1000000000 && vetAux[index] > maior) {
-                maior = vetAux[index];
-                indexMaior = index;
-            }
-        }
-        return indexMaior;
-    }
-    private static int buscaMenor(int vetAux[]) {
-        int menor = vetAux[0];
-        int indexMenor = 0;
-        
-        for(int index = 0; index < vetAux.length; ++index) {
-            if(vetAux[index] != 1000000000 && vetAux[index] < menor) {
-                menor = vetAux[index];
-                indexMenor = index;
-            }
-        }
-        return indexMenor;
-    }
 
     private static void ordenarPorSelecao(int vetAux[]) {
         int tro = 0; // Variável para contar a quantidade de Trocas desse método
         int com = 0; // Variável para contar a quantidade de Comparações desse método
-        int vetCopia[] = new int[vetAux.length];
-        vetCopia = vetAux.clone();
         System.out.println("### Ordenação por Seleção ###");
-                        // if((vetCopia.length / 2 ) % 2 == 0) {index < ( vetCopia.length / 2 )} else {index < ( vetCopia.length / 2 ) + 1}
-        for(int index = 0; (vetCopia.length / 2 ) % 2 == 0 ? index < ( vetCopia.length / 2 ) : index < ( vetCopia.length / 2 ) + 1; ++index) {
-
-            int maior = buscaMaior(vetCopia);
-            int menor = buscaMenor(vetCopia);
-            com++;
-
-            int atual = vetCopia[maior];
-            int prox = vetCopia[menor];
-
-            vetCopia[maior] = 1000000000;
-            vetCopia[menor] = 1000000000;
-
-            vetAux[vetCopia.length -  index - 1 ] = atual;
-            vetAux[index] = prox; 
-            tro++;
-        }
-        
+        // criar aqui a lógica da Ordenação por Seleção
         listarComplexiade(tro, com);
         listarVetorOrdenado(vetAux);
     }
@@ -162,5 +120,4 @@ public class Prova1AVEstruturaDeDados {
         System.out.println("Comparações: " + com);
         System.out.println("Trocas: " + tro);
     }
-
 }
