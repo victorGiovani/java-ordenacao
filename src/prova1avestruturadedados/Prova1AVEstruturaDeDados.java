@@ -17,12 +17,15 @@ import java.util.Scanner;
 
 public class Prova1AVEstruturaDeDados {
     public static void main(String[] args) {
-        int vet[] = new int[50];
+        int vet[] = { 859, 205, 541, 399, 265, 390, 81, 499, 741, 230, 740, 140, 846, 823, 478, 721, 407, 311, 851,
+                600 };
         int vetAux[] = new int[vet.length];
-        Random aleatorio = new Random();
-        for (int i = 0; i < vet.length; i++) {
-            vet[i] = aleatorio.nextInt(1000);
-        }
+        /*
+         * Random aleatorio = new Random();
+         * for (int i = 0; i < vet.length; i++) {
+         * vet[i] = aleatorio.nextInt(1000);
+         * }
+         */
         System.out.println("### Lista Desordenada ###");
         for (int val : vet) {
             System.out.print(val + "-");
@@ -63,7 +66,8 @@ public class Prova1AVEstruturaDeDados {
         }
     }
 
-    private static int[] trocaPosicao(int vetAux[], int primeiraPosicao, int segundoValor, int segundaPosicao, int primeiroValor ) {
+    private static int[] trocaPosicao(int vetAux[], int primeiraPosicao, int segundoValor, int segundaPosicao,
+            int primeiroValor) {
         vetAux[primeiraPosicao] = segundoValor;
         vetAux[segundaPosicao] = primeiroValor;
         return vetAux;
@@ -74,7 +78,9 @@ public class Prova1AVEstruturaDeDados {
         int com = 0; // Variável para contar a quantidade de Comparações desse método
         System.out.println("### Ordenação por Troca ###");
         int atual, prox, index = 0;
+        boolean condicaoDeParada;
         while (index < vetAux.length) {
+            condicaoDeParada = true;
             for (int i = 0; i < vetAux.length - index; ++i) {
                 int posicaoAtual = i, posicaoFutura = i + 1;
                 if (!(posicaoAtual == vetAux.length - 1) && (vetAux[posicaoAtual] > vetAux[posicaoFutura])) {
@@ -82,11 +88,15 @@ public class Prova1AVEstruturaDeDados {
                     prox = vetAux[posicaoFutura];
                     vetAux = trocaPosicao(vetAux, posicaoFutura, atual, posicaoAtual, prox);
                     tro++;
-                    /* vetAux[posicaoFutura] = atual;
-                    vetAux[posicaoAtual] = prox; */
+                    condicaoDeParada = false;
                 }
                 com++;
+
             }
+            if (condicaoDeParada) {
+                break;
+            }
+
             index++;
         }
         listarComplexiade(tro, com);
@@ -96,10 +106,9 @@ public class Prova1AVEstruturaDeDados {
     private static Integer[] buscaMaioreMenor(int vetAux[], int maiorIndex, int menorIndex, int qtdComparacoes) {
         int maior = vetAux[maiorIndex];
         int menor = vetAux[menorIndex];
-        Integer[] maiorEMenor = { maiorIndex, menorIndex, qtdComparacoes }; 
+        Integer[] maiorEMenor = { maiorIndex, menorIndex, qtdComparacoes };
 
         for (int index = menorIndex; index < maiorIndex + 1; ++index) {
-            maiorEMenor[2] += 1; 
             if (vetAux[index] > maior) {
                 maior = vetAux[index];
                 maiorEMenor[0] = index;
@@ -110,7 +119,7 @@ public class Prova1AVEstruturaDeDados {
                 menor = vetAux[index];
                 maiorEMenor[1] = index;
             }
-             
+
         }
         return maiorEMenor;
     }
@@ -119,15 +128,17 @@ public class Prova1AVEstruturaDeDados {
         int tro = 0; // Variável para contar a quantidade de Trocas desse método
         int com = 0; // Variável para contar a quantidade de Comparações desse método
         int maior = 0, menor = 0;
-        int casoImpar = (vetAux.length / 2) + 1, casoPar = (vetAux.length / 2); 
-        boolean parOuImpar = (vetAux.length / 2) % 2 == 0;
+        int casoImpar = (vetAux.length / 2) + 1, casoPar = (vetAux.length / 2);
+        boolean parOuImpar = (vetAux.length / 2) % 2 == 0, condicaoDeParada;
 
         System.out.println("### Ordenação por Seleção ###");
 
-        for (int index = 0; parOuImpar ? index < casoPar || index < (vetAux.length - index - 1) : index < casoImpar; ++index) { 
+        for (int index = 0; parOuImpar
+                ? index < casoPar || index < (vetAux.length - index - 1)
+                : index < casoImpar; ++index) {
             int primeiraPosicao = index;
             int ultimaPosicao = (vetAux.length - index - 1);
-
+            condicaoDeParada = true;
             Integer[] maiorEMenor = buscaMaioreMenor(vetAux, ultimaPosicao, primeiraPosicao, com);
 
             maior = maiorEMenor[0];
@@ -142,27 +153,29 @@ public class Prova1AVEstruturaDeDados {
                 int jogaNoInicio = vetAux[menor];
                 vetAux[ultimaPosicao] = jogaNoFim;
                 vetAux[primeiraPosicao] = jogaNoInicio;
+                condicaoDeParada = false;
                 tro++;
             } else {
                 int fimMaior = vetAux[maior]; // MAIOR ELEMENTO DO ARRAY QUE IRA PARA A ULTIMA POSIÇÃO
                 int inicioMenor = vetAux[menor]; // MENOR ELEMENTO DO ARRAY QUE IRA PARA A PRIMEIRA POSIÇÃO
                 if (vetAux[maior] != vetAux[ultimaPosicao]) {
-                    int atual = vetAux[ultimaPosicao]; 
+                    int atual = vetAux[ultimaPosicao];
                     vetAux = trocaPosicao(vetAux, ultimaPosicao, fimMaior, maior, atual);
+                    condicaoDeParada = false;
                     tro++;
-                    /* vetAux[ultimaPosicao] = fimMaior;
-                    vetAux[maior] = atual; */
                 }
                 if (vetAux[menor] != vetAux[primeiraPosicao]) {
-                    int atual = vetAux[primeiraPosicao]; 
+                    int atual = vetAux[primeiraPosicao];
                     if (menor == ultimaPosicao) {
                         menor = maior;
                     }
                     vetAux = trocaPosicao(vetAux, primeiraPosicao, inicioMenor, menor, atual);
+                    condicaoDeParada = false;
                     tro++;
-                    /* vetAux[primeiraPosicao] = inicioMenor;
-                    vetAux[menor] = atual; */
                 }
+            }
+            if (condicaoDeParada) {
+                break;
             }
         }
 
@@ -170,13 +183,27 @@ public class Prova1AVEstruturaDeDados {
         listarVetorOrdenado(vetAux);
     }
 
-    private static void ordenarPorInsercao(int vetAux[]) {
+    private static void ordenarPorInsercao(int lista[]) {
         int tro = 0; // Variável para contar a quantidade de Trocas desse método
         int com = 0; // Variável para contar a quantidade de Comparações desse método
         System.out.println("### Ordenação por Inserção ###");
 
+        for (int atual = 0; atual < lista.length; atual++) {
+            int analise = atual;
+            com++;
+            while (analise > 0 && lista[analise] < lista[analise - 1]) {
+                int itemAnalise = lista[analise];
+                int itemAnterior = lista[analise - 1];
+
+                lista = trocaPosicao(lista, analise, itemAnterior, analise - 1, itemAnalise);
+                tro++;
+                analise--;
+
+            }
+        }
+
         listarComplexiade(tro, com);
-        listarVetorOrdenado(vetAux);
+        listarVetorOrdenado(lista);
     }
 
     private static void listarVetorOrdenado(int vetAux[]) {
