@@ -5,9 +5,8 @@ import java.util.Scanner;
 
 /**
  * O Projeto foi realizado pela equipe:
- * 1 - Matrícula e Nome do Aluno 01
- * 2 - Matrícula e Nome do Aluno 02
- * 3 - Matrícula e Nome do Aluno 03
+ * 1 - 01508417 e Gabriel Cauã Barbosa Dos Santos 01
+ * 2 - 01522475 e Victor Giovanni de Oliveira 02
  * 
  * Turma: (2MA, 2MB, 2MC, 2MD, 2NA, 2NB ou 2NC)
  * Disciplina: Estrutura de Dados
@@ -16,16 +15,18 @@ import java.util.Scanner;
  */
 
 public class Prova1AVEstruturaDeDados {
+    /**
+     * @param args
+     */
     public static void main(String[] args) {
-        int vet[] = { 859, 205, 541, 399, 265, 390, 81, 499, 741, 230, 740, 140, 846, 823, 478, 721, 407, 311, 851,
-                600 };
+        int vet[] = new int[20];
         int vetAux[] = new int[vet.length];
-        /*
-         * Random aleatorio = new Random();
-         * for (int i = 0; i < vet.length; i++) {
-         * vet[i] = aleatorio.nextInt(1000);
-         * }
-         */
+
+        Random aleatorio = new Random();
+        for (int i = 0; i < vet.length; i++) {
+            vet[i] = aleatorio.nextInt(1000);
+        }
+
         System.out.println("### Lista Desordenada ###");
         for (int val : vet) {
             System.out.print(val + "-");
